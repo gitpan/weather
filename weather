@@ -1,0 +1,95 @@
+#!/usr/bin/perl
+# $Id: weather,v 1.2 2003/01/20 16:33:08 comdog Exp $
+use strict;
+
+=head1 NAME
+
+weather - fetch weather data
+
+=head1 SYNOPSIS
+
+	% weather
+
+=head1 DESCRIPTION
+
+This script prints current weather information. It reads from
+E<lt>DATAE<gt> and splits on pipes into the following fields:
+
+Someday I will add a proper way to store things in files.
+
+=over 4
+
+=item NOAA weather station name
+
+=item Postal abbreviation for US state name
+
+=item Location name, if different from NOAA name
+
+=item Latitude, as a decimal number
+
+=item Longitude, as a decimal number
+
+=item hour offfset from GMT
+
+=back
+
+
+=head1 SOURCE AVAILABILITY
+
+This source is part of a SourceForge project which always has the
+latest sources in CVS, as well as all of the previous releases.
+
+        https://sourceforge.net/projects/brian-d-foy/
+
+If, for some reason, I disappear from the world, one of the other
+members of the project can shepherd this module appropriately.
+
+=head1 AUTHOR
+
+brian d foy, E<lt>bdfoy@cpan.orgE<gt>.
+
+=head1 COPYRIGHT and LICENSE
+
+Copyright 2003, brian d foy, All rights reserved
+
+This software is available under the same terms as perl.
+
+=cut
+
+use Astro::Sunrise;
+use Geo::WeatherNOAA;
+
+my @date = localtime;
+
+$date[5] += 1900;
+$date[4] += 1;
+
+while( <DATA> )
+	{
+	next unless m/\|/;
+	chomp;
+
+	my( $city, $state, $name, $lat, $long, $tz ) = split /\|/;
+
+	$name ||= $city;
+
+	my $response = uc( $name ) . "\n";
+
+	$response .= print_current( $city, $state, '', 'get');
+	$response =~ s/&deg;//g;
+	$response .= "\n" unless substr( $response, -1, 1 ) eq "\n";
+
+	my( $rise, $set ) = sunrise( @date[5,4,3], $long, $lat, $tz, $date[8] );
+
+	print $response, "Sunrise: $rise  Sunset: $set\n", "-" x 73, "\n";
+	}
+
+__DATA__
+meigs|il|Chicago|41.9|-87.9|-6
+providence|ri||41.8|-71.5|-5
+new york city|ny||40.8|-74|-5
+monterey|ca||36.5|-121.9|-8
+CINC-COVINGTON|oh|Cincinnati|39.2|-84.5|-5
+atlanta|ga||33.6|-84.5|-5
+salt lake city|ut||40.8|-112|-7
+dfw airport|tx|Dallas|32.9|-96.9|-6
