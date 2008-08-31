@@ -1,0 +1,19 @@
+--- #YAML:1.0
+name:                weather
+version:             0.11
+abstract:            fetches weather information
+license:             perl
+author:              
+    - brian d foy <bdfoy@cpan.org>
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
+    Astro::Sunrise:                0
+    File::Find::Rule:              0
+    Geo::WeatherNOAA:              0
+    Test::File:                    0
+    Test::More:                    0
+    Test::Pod:                     0.90
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

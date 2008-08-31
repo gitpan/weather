@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# $Id: weather,v 1.2 2003/01/20 16:33:08 comdog Exp $
+# $Id$
 use strict;
 
 =head1 NAME
@@ -33,24 +33,13 @@ Someday I will add a proper way to store things in files.
 
 =back
 
-
-=head1 SOURCE AVAILABILITY
-
-This source is part of a SourceForge project which always has the
-latest sources in CVS, as well as all of the previous releases.
-
-        https://sourceforge.net/projects/brian-d-foy/
-
-If, for some reason, I disappear from the world, one of the other
-members of the project can shepherd this module appropriately.
-
 =head1 AUTHOR
 
 brian d foy, E<lt>bdfoy@cpan.orgE<gt>.
 
 =head1 COPYRIGHT and LICENSE
 
-Copyright 2003, brian d foy, All rights reserved
+Copyright 2003-2008, brian d foy, All rights reserved
 
 This software is available under the same terms as perl.
 

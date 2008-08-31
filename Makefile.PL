@@ -1,18 +1,16 @@
-# $Id: Makefile.PL,v 1.1 2003/01/20 16:33:08 comdog Exp $
+# $Id$
 use ExtUtils::MakeMaker;
 
-sub ExtUtils::MM_Any::test_via_harness
-	{
-    my($self, $perl, $tests) = @_;
+require 5.006;
 
-    return qq|\t$perl "-MTest::Manifest" | .
-           qq|"-e" "run_t_manifest(\$(TEST_VERBOSE), '\$(INST_LIB)', | .
-           qq|'\$(INST_ARCHLIB)')"\n|;
-	}
+eval "use Test::Manifest 1.21";
 
 WriteMakefile(
     'NAME'		    => 'weather',
-	'VERSION'       => '0.10',
+    'ABSTRACT'      => 'fetches weather information',
+	'VERSION'       => '0.11',
+	'LICENSE'		=> 'perl',
+	'AUTHOR'		=> 'brian d foy <bdfoy@cpan.org>',
 	
 	'EXE_FILES' =>  [ 'weather' ],
 	    	
@@ -21,12 +19,9 @@ WriteMakefile(
 		'File::Find::Rule'  => '0',
 		'Geo::WeatherNOAA'  => '0',
 		'Test::File'        => '0',
-		'Test::Manifest'    => '0.91',
 		'Test::More'        => '0',
 		'Test::Pod'         => '0.90',
 		},
-
-	'INSTALLSCRIPT' => '/usr/local/bin',
 	
 	'MAN1PODS' => {
 		'weather' => '$(INST_MAN1DIR)/weather.1',
